@@ -1,3 +1,63 @@
+const Calculadora = class {
+  constructor(valor1, valor2, operacao) {
+      this.valor1 = valor1;
+      this.valor2 = valor2;
+      this.operacao = operacao;
+  }
+}
+
+const calc = new Calculadora(0, 0, '');
+
+const calcForCalculator = (event)=> {
+  event.preventDefault();
+
+  calc.operacao = document.getElementById('op');
+  calc.valor1 = document.getElementById('n1').value;
+  calc.valor2 = document.getElementById('n2').value;
+  let resultado;
+
+  switch (calc.operacao.value) {
+    case '+': 
+      resultado = Number(calc.valor1) + Number(calc.valor2);
+      break;
+    case '-': 
+      resultado = Number(calc.valor1) - Number(calc.valor2);
+      break;
+    case '*':
+      resultado = Number(calc.valor1) * Number(calc.valor2);
+      break;
+    case '/':
+      resultado = Number(calc.valor1) / Number(calc.valor2);
+      break;
+    default:
+      resultado = 'Selecione uma operação';
+      break;
+  }
+  return alert(resultado);
+}
+
+export default function HomeScreen() {
+  return (
+    <form>
+      <input type="number" id="n1"/>
+      <select id="op">
+        <option value="">operação</option>
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
+      <input type="number" id="n2"/>
+      <button onClick={calcForCalculator}>
+        Calcular
+      </button>
+    </form>
+  );
+}
+
+
+
+/*
 import { Image, StyleSheet, Platform } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
@@ -16,7 +76,7 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+        <ThemedText type="title">Hello, World!</ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
@@ -72,3 +132,4 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+*/
