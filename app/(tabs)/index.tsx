@@ -1,60 +1,110 @@
+import { StyleSheet } from 'react-native';
+
 const Calculadora = class {
-  constructor(valor1, valor2, operacao) {
+  constructor(valor1, valor2, operacao, resultado) {
       this.valor1 = valor1;
       this.valor2 = valor2;
       this.operacao = operacao;
+      this.resultado = resultado;
   }
 }
-
-const calc = new Calculadora(0, 0, '');
+const calc = new Calculadora(0, 0, "", 0);
 
 const calcForCalculator = (event)=> {
   event.preventDefault();
-
-  calc.operacao = document.getElementById('op');
-  calc.valor1 = document.getElementById('n1').value;
-  calc.valor2 = document.getElementById('n2').value;
-  let resultado;
-
-  switch (calc.operacao.value) {
+  
+  switch (calc.operacao) {
     case '+': 
-      resultado = Number(calc.valor1) + Number(calc.valor2);
+      calc.resultado = calc.valor1 + calc.valor2;
       break;
     case '-': 
-      resultado = Number(calc.valor1) - Number(calc.valor2);
+      calc.resultado = calc.valor1 - calc.valor2;
       break;
     case '*':
-      resultado = Number(calc.valor1) * Number(calc.valor2);
+      calc.resultado = calc.valor1 * calc.valor2;
       break;
     case '/':
-      resultado = Number(calc.valor1) / Number(calc.valor2);
+      calc.resultado = calc.valor1 / calc.valor2;
+      break;
+    case '%':
+      calc.resultado = (calc.valor1 / 100) * calc.valor2;
       break;
     default:
-      resultado = 'Selecione uma operação';
+      calc.resultado = 'Selecione uma operação, para continuar!';
       break;
   }
-  return alert(resultado);
+  return alert(calc.resultado);
+}
+
+const valueInput = (event) => {
+  event.preventDefault();
+  
+  calc.valor1 = Number(document.getElementById('n1').value);
+  calc.valor2 = Number(document.getElementById('n2').value);
+  return calc;
+}
+
+const valueOperation = (event) => {
+  event.preventDefault();
+  calc.operacao = event.target.value;
+  return calc;
 }
 
 export default function HomeScreen() {
   return (
-    <form>
-      <input type="number" id="n1"/>
-      <select id="op">
-        <option value="">operação</option>
-        <option value="+">+</option>
-        <option value="-">-</option>
-        <option value="*">*</option>
-        <option value="/">/</option>
-      </select>
-      <input type="number" id="n2"/>
-      <button onClick={calcForCalculator}>
-        Calcular
-      </button>
+    <form style={styles.calculator}>
+      <p id="resultado" style={styles.visorResultado}></p>
+
+      <div style={styles.groupButtons}>
+        <button value={'+'} style={styles.buttonOperation} onClick={valueOperation}>+</button>
+        <button value={'-'} style={styles.buttonOperation} onClick={valueOperation}>-</button>
+        <button value={'*'} style={styles.buttonOperation} onClick={valueOperation}>*</button>
+        <button value={'/'} style={styles.buttonOperation} onClick={valueOperation}>/</button>
+        <button value={'%'} style={styles.buttonOperation} onClick={valueOperation}>%</button>
+        <button style={styles.buttonOperation} onClick={calcForCalculator}>=</button>
+        <button style={styles.buttonOperation} type="reset">C</button>
+      </div>
+
+      <input type="number" id="n1" onChange={valueInput} />
+      <br/>
+      <input type="number" id="n2" onChange={valueInput} />    
     </form>
   );
 }
 
+const styles = StyleSheet.create({
+  buttonOperation: {
+    width: 70,
+    height: 70,
+    borderRadius: 40,
+    backgroundColor: 'yellow',
+  },
+  buttonNumber: {
+    width: 70,
+    height: 70,
+    borderRadius: 40,
+    backgroundColor: 'blue',
+  },
+  groupButtons: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: 10,
+    paddingTop: 10,
+  },
+  visorResultado: {
+    width: 320,
+    height: 50,
+    fontSize: 40,
+    textAlign: 'right',
+  },
+  calculator: {
+    width: 327,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+});
 
 
 /*
