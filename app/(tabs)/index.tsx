@@ -1,7 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, useColorScheme } from 'react-native';
 import { Calculadora } from '@/hooks/Calculadora';
 
 const calc = new Calculadora(0, 0, "", 0);
+const colorSheme = useColorScheme();
 
 const valueOperation = (event) => {
   event.preventDefault();
@@ -88,38 +89,40 @@ function viewResult() {
   return calc;
 }
 
-export default function HomeScreen() {
+export default function App() {
   return (
-    <fieldset style={styles.calculatorBorder}>
-      <form style={styles.calculator}>
-        <fieldset style={styles.visorResult}>
-          <input type="number" style={styles.inputCamp} id="n1" readOnly/>
-          <input type="text" style={styles.inputCampOp} id="op" readOnly/>
-          <input type="number" style={styles.inputCamp} id="n2" readOnly />
-        </fieldset>
-        <div style={styles.groupButtons}>
-          <button style={styles.buttonOperation} type='reset' onClick={clearCalculator}>C</button>
-          <button value={'%'} style={styles.buttonOperation} onClick={valueOperation}>%</button>
-          <button value={'^'} style={styles.buttonOperation} onClick={valueOperation}>^</button>
-          <button value={'+'} style={styles.buttonOperation} onClick={valueOperation}>+</button>
-          <button value={'1'} style={styles.buttonNumber} onClick={valueNumber}>1</button>
-          <button value={'2'} style={styles.buttonNumber} onClick={valueNumber}>2</button>
-          <button value={'3'} style={styles.buttonNumber} onClick={valueNumber}>3</button>
-          <button value={'-'} style={styles.buttonOperation} onClick={valueOperation}>-</button>
-          <button value={'4'} style={styles.buttonNumber} onClick={valueNumber}>4</button>
-          <button value={'5'} style={styles.buttonNumber} onClick={valueNumber}>5</button>
-          <button value={'6'} style={styles.buttonNumber} onClick={valueNumber}>6</button>
-          <button value={'*'} style={styles.buttonOperation} onClick={valueOperation}>*</button>
-          <button value={'7'} style={styles.buttonNumber} onClick={valueNumber}>7</button>
-          <button value={'8'} style={styles.buttonNumber} onClick={valueNumber}>8</button>
-          <button value={'9'} style={styles.buttonNumber} onClick={valueNumber}>9</button>
-          <button value={'/'} style={styles.buttonOperation} onClick={valueOperation}>/</button>
-          <button value={'0'} style={styles.buttonZero} onClick={valueNumber}>0</button>
-          <button value={'.'} style={styles.buttonNumber} onClick={valueNumber}>.</button>
-          <button style={styles.buttonOperation} type='submit' onClick={calcForCalculator}>=</button>
-        </div>
-      </form>
-    </fieldset>
+    <div style={styles.viewArea}>
+      <fieldset style={styles.calculatorBorder}>
+        <form style={styles.calculator}>
+          <fieldset style={styles.visorResult}>
+            <input type="number" style={styles.inputCamp} id="n1" readOnly/>
+            <input type="text" style={styles.inputCampOp} id="op" readOnly/>
+            <input type="number" style={styles.inputCamp} id="n2" readOnly />
+          </fieldset>
+          <div style={styles.groupButtons}>
+            <button style={styles.buttonOperation} type='reset' onClick={clearCalculator}>C</button>
+            <button value={'%'} style={styles.buttonOperation} onClick={valueOperation}>%</button>
+            <button value={'^'} style={styles.buttonOperation} onClick={valueOperation}>^</button>
+            <button value={'+'} style={styles.buttonOperation} onClick={valueOperation}>+</button>
+            <button value={'1'} style={styles.buttonNumber} onClick={valueNumber}>1</button>
+            <button value={'2'} style={styles.buttonNumber} onClick={valueNumber}>2</button>
+            <button value={'3'} style={styles.buttonNumber} onClick={valueNumber}>3</button>
+            <button value={'-'} style={styles.buttonOperation} onClick={valueOperation}>-</button>
+            <button value={'4'} style={styles.buttonNumber} onClick={valueNumber}>4</button>
+            <button value={'5'} style={styles.buttonNumber} onClick={valueNumber}>5</button>
+            <button value={'6'} style={styles.buttonNumber} onClick={valueNumber}>6</button>
+            <button value={'*'} style={styles.buttonOperation} onClick={valueOperation}>*</button>
+            <button value={'7'} style={styles.buttonNumber} onClick={valueNumber}>7</button>
+            <button value={'8'} style={styles.buttonNumber} onClick={valueNumber}>8</button>
+            <button value={'9'} style={styles.buttonNumber} onClick={valueNumber}>9</button>
+            <button value={'/'} style={styles.buttonOperation} onClick={valueOperation}>/</button>
+            <button value={'0'} style={styles.buttonZero} onClick={valueNumber}>0</button>
+            <button value={'.'} style={styles.buttonNumber} onClick={valueNumber}>.</button>
+            <button style={styles.buttonOperation} type='submit' onClick={calcForCalculator}>=</button>
+          </div>
+        </form>
+      </fieldset>
+    </div>
   );
 }
 
@@ -128,33 +131,34 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 10,
-    backgroundColor: '#505050',
+    backgroundColor: `${colorSheme === 'dark' ? '#505050' : '#cfcfcf'}`,
     borderColor: 'transparent',
     fontSize: 20,
-    color: 'yellow',
+    color: `${colorSheme === 'dark' ? 'yellow' : 'orangered'}`,
     cursor: 'pointer',
   },
   buttonNumber: {
     width: 70,
     height: 70,
     borderRadius: 10,
-    backgroundColor: '#505050',
+    backgroundColor: `${colorSheme === 'dark' ? '#505050' : '#cfcfcf'}`,
     borderColor: 'transparent',
     fontSize: 20,
-    color: 'white',
+    color: `${colorSheme === 'dark' ? 'white' : 'black'}`,
     cursor: 'pointer',  
   },
   buttonZero: { //apenas para a visualização ficar melhor
     width: 152,
     height: 70,
     borderRadius: 10,
-    backgroundColor: '#505050',
+    backgroundColor: `${colorSheme === 'dark' ? '#505050' : '#cfcfcf'}`,
     borderColor: 'transparent',
     fontSize: 20,
-    color: 'white',
+    color: `${colorSheme === 'dark' ? 'white' : 'black'}`,
     cursor: 'pointer',
   },
   inputCamp: {
+    color: `${colorSheme === 'dark' ? 'black' : 'white'}`,
     paddingTop: 10,
     paddingBottom: 10,
     textAlign: 'center',
@@ -164,6 +168,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   inputCampOp: {
+    color: `${colorSheme === 'dark' ? 'black' : 'white'}`,
     paddingTop: 10,
     paddingBottom: 10,
     textAlign: 'center',
@@ -182,8 +187,8 @@ const styles = StyleSheet.create({
   visorResult: {
     padding: 0,
     display: 'flex',
-    backgroundColor: 'white',
-    borderColor: 'gray',
+    backgroundColor: `${colorSheme === 'dark' ? 'whitesmoke' : '#767676'}`,
+    borderColor: `${colorSheme === 'dark' ? 'whitesmoke' : '#767676'}`,
     borderRadius: 6,
   },
   calculator: {
@@ -197,6 +202,13 @@ const styles = StyleSheet.create({
   calculatorBorder: {
     padding: 10,
     borderRadius: 24,
-    margin: 'auto',
+  },
+  viewArea: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundColor: `${colorSheme === 'dark' ? '#222222' : '#ffffff'}`,
   },
 });
