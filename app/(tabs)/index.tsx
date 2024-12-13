@@ -3,7 +3,8 @@ import { Calculadora } from '@/hooks/Calculadora';
 
 const calc = new Calculadora(0, 0, "", 0);
 
-const valueInput = () => {
+const valueInput = (event) => {
+  event.preventDefault();
   calc.valor1 = Number(document.getElementById('n1').value);
   calc.valor2 = Number(document.getElementById('n2').value);  
   return calc;
@@ -11,8 +12,24 @@ const valueInput = () => {
 
 const valueOperation = (event) => {
   event.preventDefault();
+  const camp2 = document.getElementById('n2');
+  camp2?.focus();
+  
+  const campOperation = document.getElementById('op');
   calc.operacao = event.target.value;
+  campOperation.value = calc.operacao;
   return calc;
+}
+
+let campValueOne = '';
+const valueNumber = (event) => {
+  const camp1 = document.getElementById('n1');
+  event.preventDefault();
+  campValueOne += event.target.value;
+  calc.valor1 = Number(campValueOne);
+  camp1.value = calc.valor1;
+  console.log('r = ', campValueOne);
+  return  calc;
 }
 
 const calcForCalculator = (event)=> {
@@ -38,7 +55,6 @@ const calcForCalculator = (event)=> {
       calc.resultado = calc.valor1 ** calc.valor2;
       break;
     default:
-      calc.resultado = 'Selecione uma operação, para continuar!';
       break;
   }
   viewResult(); //nao funciona com arrow functions
@@ -51,6 +67,7 @@ const clearCalculator = () => {
   calc.resultado = 0;
   calc.valor1 = 0;
   calc.valor2 = 0;
+  campValueOne = '';
   console.log(calc);
   return calc;
 }
@@ -65,20 +82,36 @@ export default function HomeScreen() {
     <form style={styles.calculator}>
       <input type="number" id="visor" style={styles.visorResult} readOnly />
 
-      <div style={{ display: 'flex' }}>
-        <input type="number" style={{ padding: 6, fontSize: 16, width: 145 }} id="n1" onChange={valueInput} />
-        <input type="number" style={{ padding: 6, fontSize: 16, width: 145 }} id="n2" onChange={valueInput} />
+      <div style={{ display: 'flex', gap: 2, backgroundColor: 'gray' }}>
+        <input type="number" style={styles.inputCamp} id="n1" onChange={valueInput} readOnly/>
+        <input type="text" style={styles.inputCampOp} id="op" onChange={valueInput} readOnly/>
+        <input type="number" style={styles.inputCamp} id="n2" onChange={valueInput} />
       </div> 
 
       <div style={styles.groupButtons}>
-        <button value={'+'} style={styles.buttonOperation} onClick={valueOperation}>+</button>
-        <button value={'-'} style={styles.buttonOperation} onClick={valueOperation}>-</button>
-        <button value={'*'} style={styles.buttonOperation} onClick={valueOperation}>*</button>
-        <button value={'/'} style={styles.buttonOperation} onClick={valueOperation}>/</button>
-        <button value={'%'} style={styles.buttonOperation} onClick={valueOperation}>%</button>
-        <button value={'^'} style={styles.buttonOperation} onClick={valueOperation}><sub>X</sub><sup>y</sup></button>
-        <button style={styles.buttonOperation} type='submit' onClick={calcForCalculator}>=</button>
         <button style={styles.buttonOperation} type='reset' onClick={clearCalculator}>C</button>
+        <button value={'%'} style={styles.buttonOperation} onClick={valueOperation}>%</button>
+        <button value={'^'} style={styles.buttonOperation} onClick={valueOperation}>^</button>
+        <button value={'+'} style={styles.buttonOperation} onClick={valueOperation}>+</button>
+
+        <button value={'1'} style={styles.buttonNumber} onClick={valueNumber}>1</button>
+        <button value={'2'} style={styles.buttonNumber} onClick={valueNumber}>2</button>
+        <button value={'3'} style={styles.buttonNumber} onClick={valueNumber}>3</button>
+        <button value={'-'} style={styles.buttonOperation} onClick={valueOperation}>-</button>
+
+        <button value={'4'} style={styles.buttonNumber} onClick={valueNumber}>4</button>
+        <button value={'5'} style={styles.buttonNumber} onClick={valueNumber}>5</button>
+        <button value={'6'} style={styles.buttonNumber} onClick={valueNumber}>6</button>
+        <button value={'*'} style={styles.buttonOperation} onClick={valueOperation}>*</button>
+
+        <button value={'7'} style={styles.buttonNumber} onClick={valueNumber}>7</button>
+        <button value={'8'} style={styles.buttonNumber} onClick={valueNumber}>8</button>
+        <button value={'9'} style={styles.buttonNumber} onClick={valueNumber}>9</button>
+        <button value={'/'} style={styles.buttonOperation} onClick={valueOperation}>/</button>
+
+        <button value={'0'} style={styles.buttonZero} onClick={valueNumber}>0</button>
+        <button value={'.'} style={styles.buttonNumber} onClick={valueNumber}>.</button>
+        <button style={styles.buttonOperation} type='submit' onClick={calcForCalculator}>=</button>
       </div>
     </form>
   );
@@ -93,6 +126,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     fontSize: 20,
     color: 'yellow',
+    cursor: 'pointer',
   },
   buttonNumber: {
     width: 70,
@@ -102,6 +136,31 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     fontSize: 20,
     color: 'white',
+    cursor: 'pointer',  
+  },
+  buttonZero: { //apenas para a visualização ficar melhor
+    width: 150,
+    height: 70,
+    borderRadius: 10,
+    backgroundColor: '#505050',
+    borderColor: 'transparent',
+    fontSize: 20,
+    color: 'white',
+    cursor: 'pointer',
+  },
+  inputCamp: {
+    textAlign: 'center',
+    fontSize: 28, 
+    width: 128,
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+  },
+  inputCampOp: {
+    textAlign: 'center',
+    fontSize: 28, 
+    width: 40,
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
   },
   groupButtons: {
     display: 'flex',
