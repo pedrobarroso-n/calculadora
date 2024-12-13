@@ -1,8 +1,7 @@
-import { StyleSheet, useColorScheme } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Calculadora } from '@/hooks/Calculadora';
 
 const calc = new Calculadora(0, 0, "", 0);
-const colorSheme = useColorScheme();
 
 const valueOperation = (event) => {
   event.preventDefault();
@@ -131,34 +130,33 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 10,
-    backgroundColor: `${colorSheme === 'dark' ? '#505050' : '#cfcfcf'}`,
+    backgroundColor: '#505050',
     borderColor: 'transparent',
     fontSize: 20,
-    color: `${colorSheme === 'dark' ? 'yellow' : 'orangered'}`,
+    color: 'yellow',
     cursor: 'pointer',
   },
   buttonNumber: {
     width: 70,
     height: 70,
     borderRadius: 10,
-    backgroundColor: `${colorSheme === 'dark' ? '#505050' : '#cfcfcf'}`,
+    backgroundColor: '#505050',
     borderColor: 'transparent',
     fontSize: 20,
-    color: `${colorSheme === 'dark' ? 'white' : 'black'}`,
+    color: 'white',
     cursor: 'pointer',  
   },
   buttonZero: { //apenas para a visualização ficar melhor
     width: 152,
     height: 70,
     borderRadius: 10,
-    backgroundColor: `${colorSheme === 'dark' ? '#505050' : '#cfcfcf'}`,
+    backgroundColor: '#505050',
     borderColor: 'transparent',
     fontSize: 20,
-    color: `${colorSheme === 'dark' ? 'white' : 'black'}`,
+    color: 'white',
     cursor: 'pointer',
   },
   inputCamp: {
-    color: `${colorSheme === 'dark' ? 'black' : 'white'}`,
     paddingTop: 10,
     paddingBottom: 10,
     textAlign: 'center',
@@ -168,7 +166,6 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   inputCampOp: {
-    color: `${colorSheme === 'dark' ? 'black' : 'white'}`,
     paddingTop: 10,
     paddingBottom: 10,
     textAlign: 'center',
@@ -187,8 +184,8 @@ const styles = StyleSheet.create({
   visorResult: {
     padding: 0,
     display: 'flex',
-    backgroundColor: `${colorSheme === 'dark' ? 'whitesmoke' : '#767676'}`,
-    borderColor: `${colorSheme === 'dark' ? 'whitesmoke' : '#767676'}`,
+    backgroundColor: 'whitesmoke',
+    borderColor: 'whitesmoke',
     borderRadius: 6,
   },
   calculator: {
@@ -209,6 +206,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    backgroundColor: `${colorSheme === 'dark' ? '#222222' : '#ffffff'}`,
+    backgroundColor: '#222222',
   },
 });
