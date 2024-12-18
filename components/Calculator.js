@@ -1,4 +1,4 @@
-export class Calculadora {
+export class Calculator {
     constructor(valor1, valor2, operacao, resultado) {
         this.valor1 = valor1;
         this.valor2 = valor2;
